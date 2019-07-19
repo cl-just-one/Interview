@@ -20,7 +20,7 @@
   > 触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间
   * __思路__
   > 每次触发事件时都取消之前的延时调用方法
-  ```
+  ```JavaScript
   function debounce(fn) {
     let timeout = null; // 创建一个标记用来存放定时器的返回值
     return function () {
@@ -40,11 +40,11 @@
   var inp = document.getElementById('inp');
   inp.addEventListener('input', debounce(sayHi)); // 防抖
   ```
-  1. **节流**
+  2. **节流**
   > 高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率
   * __思路__
   > 每次触发事件时都判断当前是否有等待执行的延时函数
-  ```
+  ```JavaScript
   function throttle(fn) {
     let canRun = true; // 通过闭包保存一个标记
     return function () {
@@ -80,4 +80,205 @@
   > 2. 健名所指向的对象，不计入垃圾回收机制
   > 3. 不能遍历，方法同get,set,has,delete
 ### 第五题：介绍下深度优先遍历和广度优先遍历，如何实现？
-  
+  TODO
+### 第六题：使用css实现一个持续的动画效果
+  * __CSS动画__
+  ```css
+  .box {
+    width: 200px;
+    height: 100px;
+    background-color: #00ffff;
+    position: relative;
+    animation: myFrame 5s infinite;
+    -webkit-animation: myFrame 5s infinite; /* Safari and Chrome */
+  }
+  /* 动画属性 */
+  @keyframes myFrame {
+    from {
+      top: 0px;
+    }
+    to {
+      top: 200px;
+    }
+  }
+  @-webkit-keyframes myFrame { /* Safari and Chrome */
+    from {
+      top: 0px;
+    }
+    to {
+      top: 200px;
+    }
+  }
+  ```
+  * __requestAnimationFrame动画__
+  ```JavaScript
+  var e = document.getElementById('e');
+  var flag = true;
+  var left = 0;
+  setInterval(() => {
+    left == 0 ? flag = true : left == 100 ? flag = false : '';
+    flag ? e.style.left = ` ${left++}px` : e.style.left = ` ${left--}px`;
+  }, 1000 / 60)
+  ```
+### 第七题: 右边宽度固定，左边自适应
+  <details>
+  <summary>第一种</summary>
+
+  > css
+  ```css
+  body {
+    display: flex;
+  }
+  .left {
+    height: 100vh;
+    background-color: #1122ff;
+    flex: 1;
+  }
+  .right {
+    width: 200px;
+    height: 100vh;
+    background-color: #ccddaa;
+  }
+  ```
+  > html
+  ```html
+  <body>
+    <div class="left"></div>
+    <div class="right"></div>
+  </body>
+  ```
+  </details>
+  <details>
+  <summary>第二种</summary>
+
+  > css
+  ```css
+  .left {
+    float: right;
+    background-color: #66ee33;
+    width: 200px;
+    height: 100vh;
+  }
+  .right {
+    margin-right: 200px;
+    background-color: #ffee11;
+    height: 100vh;
+  }
+  ```
+  > html
+  ```html
+  <body>
+    <div class="left"></div>
+    <div class="right"></div>
+  </body>
+  ```
+  </details>
+### 第八题: 水平垂直居中
+  <details>
+  <summary>第一种 transform</summary>
+
+  > css
+  ```css
+  .container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  .box {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    background-color: #888;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  ```
+  ```html
+  <div class="container">
+    <div class="box">水平垂直居中</div>
+  </div>
+  ```
+  </details>
+  <details>
+  <summary>第二种 margin: -height/2 0 0 -width/2 </summary>
+
+  > css
+  ```css
+  .container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  .box {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    background-color: #888;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+  }
+  ```
+  > html
+  ```html
+  <div class="container">
+    <div class="box">水平垂直居中</div>
+  </div>
+  ```
+  </details>
+  <details>
+  <summary>第三种 margin: auto</summary>
+
+  > css
+  ```css
+  .container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  .box {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    background-color: #888;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  ```
+  > html
+  ```html
+  <div class="container">
+    <div class="box">水平垂直居中</div>
+  </div>
+  ```
+  </details>
+  <details>
+  <summary>第三种 display: flex </summary>
+
+  > css
+  ```css
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+  }
+  .box {
+    width: 300px;
+    height: 200px;
+    background-color: #888;
+  }
+  ```
+  > html
+  ```html
+  <div class="container">
+    <div class="box">水平垂直居中</div>
+  </div>
+  ```
+  </details>
+ 

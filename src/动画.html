@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS动画</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 100px;
+      background-color: #00ffff;
+      position: relative;
+      animation: myFrame 5s infinite;
+      -webkit-animation: myFrame 5s infinite; /* Safari and Chrome */
+    }
+    /* 动画属性 */
+    @keyframes myFrame {
+      from {
+        top: 0px;
+      }
+      to {
+        top: 200px;
+      }
+    }
+    @-webkit-keyframes myFrame { /* Safari and Chrome */
+      from {
+        top: 0px;
+      }
+      to {
+        top: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+</html>
