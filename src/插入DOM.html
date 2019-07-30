@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <ul id="js-list"></ul>
+  </div>
+  <script>
+    (() => {
+      const ndContainer = document.getElementById("js-list");
+      if (!ndContainer) {
+        return;
+      }
+
+      var total = 300;
+      var batchSize = 4; // 每次批量插入的个数 越大越卡
+      var batchCount = total / batchSize // 需要批量处理多少次
+      var batchDone = 0; // 已经批量完成的次数
+
+      function appendItem() {
+        const fragment = document.createDocumentFragment();
+        for (var i = 1; i <= batchSize; i++) {
+          var ndItem = document.createElement("li");
+          ndItem.innerText = (batchDone * batchSize) + i;
+          fragment.appendChild(ndItem);
+        }
+        // 每次批处理只修改 1 次 DOM
+        ndContainer.appendChild(fragment);
+        batchDone += 1;
+        doBatchAppend();
+      }
+
+      function doBatchAppend() {
+        if (batchDone < batchCount) {
+          window.requestAnimationFrame(appendItem);
+        }
+      }
+
+      // kickoff
+      doBatchAppend()
+
+      // var container = document.getElementById("list");
+      // for (var i = 1; i < 4; i++) {
+      //   var dom = document.createElement("li")
+      //   dom.innerText = i;
+      //   container.appendChild(dom);
+      // }
+
+      ndContainer.addEventListener("click", function (e) {
+        if (e.target.tagName == "LI") {
+          alert(e.target.innerText);
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
